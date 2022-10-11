@@ -17,7 +17,7 @@ public class mariadbconn{
 			Class.forName("org.mariadb.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/wordbook",
 	                "root",
-	                "tls7156447");
+	                "root");
 			System.out.println("connect success");
 			return con;
 			

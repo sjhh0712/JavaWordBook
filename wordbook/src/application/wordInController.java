@@ -12,8 +12,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class wordInController implements Initializable {
 	@FXML private TextField wordin, wordmn;
@@ -27,7 +29,12 @@ public class wordInController implements Initializable {
 		db= new mariadbconn();
 	}
 	
-	public void insertword(ActionEvent event) {
+	public void insertword(ActionEvent event) throws Exception{
+		Parent root = FXMLLoader.load(getClass().getResource("wordinsert.fxml"));
+		
+		Scene scene = new Scene(root);
+		Stage stage = new Stage();
+		
 		String gword = wordin.getText();
 		String gmean = wordmn.getText();
 		
@@ -39,8 +46,9 @@ public class wordInController implements Initializable {
 			ps.setString(2, gmean);
 			int status = ps.executeUpdate();//쿼리 실행 후 결과값(건수)을 status에 담기
 			
-
-			
+			if(gword == "" || gmean == "") {
+				JOptionPane.showMessageDialog(null, "단어를 입력해주세요.");
+			}
 			if(status == 1) {
 				JOptionPane.showMessageDialog(null, "저장되었습니다.");
 				wordin.setText("");
@@ -55,6 +63,5 @@ public class wordInController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
+	}	
 }

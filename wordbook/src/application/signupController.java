@@ -46,14 +46,18 @@ public class signupController implements Initializable{
 		
 		try {
 			//조회 쿼리
-			ps = db.con.prepareStatement("select id from user where id = ?");
+			ps = db.con.prepareStatement("select userID from user where userID = ?");
 			ps.setString(1, gid);
 			
 			db.rs = ps.executeQuery();
 			
 			while(db.rs.next()) {
-				checkid = db.rs.getString("id");
+				checkid = db.rs.getString("userID");
 				break;
+			}
+			if(checkid == "") {
+				JOptionPane.showMessageDialog(null, "항목을 입력해주세요.");
+				return;
 			}
 			if(checkid.equals(gid)) {
 				JOptionPane.showMessageDialog(null, "중복된 아이디입니다.");
@@ -67,7 +71,7 @@ public class signupController implements Initializable{
 		
 		try {
 			//삽입 쿼리
-			ps = db.con.prepareStatement("insert into user (id, password)values(?,?)");
+			ps = db.con.prepareStatement("insert into user (userID, userPassword)values(?,?)");
 			
 			ps.setString(1, gid);
 			ps.setString(2, gpwd);

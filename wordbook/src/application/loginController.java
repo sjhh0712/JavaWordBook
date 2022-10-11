@@ -35,15 +35,15 @@ public class loginController implements Initializable {
 		String uid = null;
 		String upwd = null;
 		try {
-			ps = mdb.con.prepareStatement("select id,password from user where id = ?");
+			ps = mdb.con.prepareStatement("select userId,userPassword from user where userId = ?");
 			ps.setString(1, lid);
 			
 			mdb.rs = ps.executeQuery();
 			
 			
 			while(mdb.rs.next()) {
-				uid = mdb.rs.getString("id");
-				upwd = mdb.rs.getString("password");
+				uid = mdb.rs.getString("userId");
+				upwd = mdb.rs.getString("userPassword");
 				break;
 			}
 			
